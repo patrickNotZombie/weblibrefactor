@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>weblib</display-name>
+  
+    <!-- 上下文参数 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:/applicationContext.xml</param-value>
+	</context-param>
+	
+  <!-- 记得写完相关类后加上，原版并没有注释掉 -->
+ <!--  
+	<listener>
+		<listener-class>com.dcampus.groups.web.listener.SessionListener</listener-class>
+	</listener>
+-->
+
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+ 
+ 
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+    	
+
+	<!-- OpenEntityManagerInViewFilter -->
+	<filter>
+		<filter-name>openEntityManagerInViewFilter</filter-name>
+		<filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>openEntityManagerInViewFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+    <servlet>
+	    <servlet-name>springMVC</servlet-name>
+	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	    <init-param>
+	      <param-name>contextConfigLocation</param-name>
+	      <param-value>classpath*:/applicationContext-mvc.xml</param-value>
+	    </init-param>
+	    <load-on-startup>1</load-on-startup>
+    </servlet>
+	<servlet-mapping>
+	    <servlet-name>springMVC</servlet-name>
+	    <url-pattern>/</url-pattern>
+	</servlet-mapping>	
+
+
+ <!-- patrick 记得写完相关类后加上，原版并没有注释掉
+	<filter>
+		<filter-name>SiteFilter</filter-name>
+		<filter-class>com.dcampus.groups.web.filter.SiteFilter</filter-class>
+		<init-param>
+			<description>设定不需要保护的 uri，多个 uri 之间以半角逗号分隔</description>
+			<param-name>ignore-uri</param-name>
+			<param-value>/pages/c/404.html,pages/c/login/images/,/pages/c/login/</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>SiteFilter</filter-name>
+		<url-pattern>/pages/*</url-pattern>
+	</filter-mapping>
+
+
+
+	<filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>com.dcampus.groups.web.filter.UrlRewriteFilter</filter-class>
+	</filter>
+patrick -->
+	 <!--
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
+	
+
+
+
+ 
+	
+
+	<!-- 中央认证 -->
+
+	<!-- 
+
+	<filter>
+		<filter-name>CAS Filter</filter-name>
+		<filter-class>
+			cn.edu.scut.cas.client.filter.CASFilter
+		</filter-class>
+		<init-param>
+			<description>设定不需要保护的 uri，多个 uri 之间以半角逗号分隔</description>
+			<param-name>ignore-uri</param-name>
+			<param-value>/pages/logout.jsp,/pages/login.jsp,/pages/c/logout.html,/pages/c/login.jsp,/pages/c/login.html,/pages/c/login/,/pages/c/login/js/,/pages/c/login/images/,/pages/c/login/images/cssimgs/,/pages/c/filedownload.jsp,/pages/c/js/,/pages/c/images/,/pages/c/downloadfail.jsp,/pages/c/404.html,/pages/c/m/,/pages/c/m/js/,/pages/c/m/css/,/pages/c/m/images/</param-value>
+		</init-param>
+		<init-param>
+			<description>登录 cas 服务器的地址</description>
+			<param-name>login-url</param-name>
+			<param-value>https://security.scut.edu.cn/cas/login</param-value>
+		</init-param>
+		<init-param>
+			<description>cas 服务器校验 ticket 的地址</description>
+			<param-name>validate-url</param-name>
+			<param-value>https://security.scut.edu.cn/cas/serviceValidate</param-value>
+		</init-param>
+		<init-param>
+			<description>退出 cas 服务器的地址</description>
+			<param-name>logout-url</param-name>
+			<param-value>https://security.scut.edu.cn/cas/logout</param-value>
+		</init-param>
+		<init-param>
+			<description>登录 cas 后返回的地址</description>
+			<param-name>login-redirect-url</param-name>
+			<param-value>/pages/casLogin.jsp</param-value>
+		</init-param>
+		<init-param>
+			<description>退出 cas 后返回的地址</description>
+			<param-name>logout-redirect-url</param-name>
+			<param-value>/pages/logout.jsp</param-value>
+		</init-param> -->
+		<!--
+		<init-param>
+			<param-name>ignore-uri</param-name>
+			<description>设定不需要保护的 uri，多个 uri 之间以半角逗号分隔</description>
+			<param-value>/logout.jsp,/css/,/images/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>login-url</param-name>
+			<description>登录 cas 服务器的地址</description>
+			<param-value> https://cas.gzfda.gov.cn/cas/login</param-value>
+		</init-param>
+		<init-param>
+			<param-name>logout-url</param-name>
+			<description>退出 cas 服务器的地址</description>
+			<param-value> https://security.gdfs.edu.cn/cas/logout</param-value>
+		</init-param>
+		<init-param>
+			<param-name>validate-url</param-name>
+			<description>cas 服务器校验 ticket 的地址</description>
+			<param-value> https://cas.gzfda.gov.cn/cas/serviceValidate</param-value>
+		</init-param>
+		<init-param>
+			<param-name>server-name</param-name>
+			<description>服务名称，只有在同一个域名下配置多个服务才需要设置</description>
+			<param-value>/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>login-redirect-parameter</param-name>
+			<description>传递登录 cas 后返回的地址的参数名称</description>
+			<param-value>service</param-value>
+		</init-param>
+		<init-param>
+			<param-name>login-redirect-url</param-name>
+			<description>登录 cas 后返回的地址</description>
+			<param-value>/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>logout-redirect-parameter</param-name>
+			<description>传递退出 cas 后返回的地址的参数名称</description>
+			<param-value>backurl</param-value>
+		</init-param>
+		<init-param>
+			<param-name>logout-redirect-url</param-name>
+			<description>退出 cas 后返回的地址</description>
+			<param-value>/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>logout-parameter</param-name>
+			<description>request 中该参数的值为 true 时退出 cas</description>
+			<param-value>logout000</param-value>
+		</init-param>
+		<init-param>
+			<param-name>session-user</param-name>
+			<description>session 中保存用户名的参数名称</description>
+			<param-value>cas.client.user</param-value>
+		</init-param>
+		<init-param>
+			<param-name>session-userattribute</param-name>
+			<description>session 中保存用户属性对象的参数名称</description>
+			<param-value>cas.client.userattributes</param-value>
+		</init-param>
+		<init-param>
+			<param-name>accept-ou</param-name>
+			<description>
+				用户通过认证后的属性检查，只要具备下面 ou 属性的用户才允许访问。其他重定向到 rejected-url 配置的 url。
+				配置这项要求同时配置 rejected-url
+			</description>
+			<param-value>scut,ncstaff</param-value>
+		</init-param>
+		<init-param>
+			<param-name>rejected-url</param-name>
+			<description>用户没有通过 ou 检查的重定向地址。</description>
+			<param-value>/reject.html</param-value>
+		</init-param> -->
+		<!-- 
+	</filter>
+	 -->
+
+	<!-- 
+
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/pages/*</url-pattern>
+	</filter-mapping> -->
+
+
+
+
+
+
+ <!--  
+
+	<servlet>
+		<servlet-name>remoting</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>remoting</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+
+-->	
+
+
+    
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
+
+
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
+	
+</web-app>
