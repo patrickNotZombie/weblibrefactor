@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>资源库登录</title>
+<script src="js/jquery-1.4.2.pack.js" type="text/javascript"></script>
+<script src="../login/js/AC_RunActiveContent.js" type="text/javascript"></script>
+<script>
+$(function(){
+
+	$(".logon-left").bind("click",function(e){
+		var target = $(e.target);
+		if(target.is(".logon-left-text1") ||　target.parent().is(".logon-left-text1")) {
+			$(".logon-left").removeClass("select1").find("a").removeClass("active");
+			$(".logon-left-text1").addClass("active");
+			$(".logon-left").find("a").removeClass("logon-left-text1Hover").removeClass("logon-left-text2Hover");
+		} 
+		if(target.is(".logon-left-text2") || target.parent().is(".logon-left-text2")) {
+		   $(".logon-left").addClass("select1").find("a").removeClass("active");
+		   $(".logon-left-text2").addClass("active");
+		   $(".logon-left").find("a").removeClass("logon-left-text1Hover").removeClass("logon-left-text2Hover");
+		}
+	});
+
+	$(".logon-left").bind("mouseover",function(e){
+		var target = $(e.target);
+		if(target.is(".logon-left-text1") ||　target.parent().is(".logon-left-text1")) {
+		   if(target.is(".active") || target.parent().is(".active")) {
+			  return;
+		   } else {
+			  target.addClass("logon-left-text1Hover ");
+		   }
+		} 
+		if(target.is(".logon-left-text2") || target.parent().is(".logon-left-text2")) {
+		   if(target.is(".active") || target.parent().is(".active")) {
+			  return;
+		   } else {
+			  target.addClass("logon-left-text2Hover");
+		   }
+		}
+	}).find("a").bind("mouseleave",function(){
+		$(".logon-left").find("a").removeClass("logon-left-text1Hover").removeClass("logon-left-text2Hover");
+	});
+})
+</script>
+<link href="login.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div class="top">
+    	<div class="top-main">
+    		<a href="#" target="_self">管理端入口</a>
+    	</div>
+    </div>
+    <DIV class = "main">
+    	<div class="logon">
+        	<div class="logon-main">
+                <div class="logon-left select0">
+                    <a class="logon-left-text1 active" href="javascript:void(0)" onfocus="this.blur()">
+                        <!--p>专业版使用更便捷，支持鼠标右键操作。</p-->
+                    </a>
+                    <a class="logon-left-text2" href="javascript:void(0)" onfocus="this.blur()">
+                        <!--p>极速版为低带宽的用户带来迅速的资源服务。</p-->
+                    </a>
+                </div>
+                
+                <div class="logon-right">
+                    <form action="../login/login/authenticate.action" method="post">
+                        <div class="form-text">
+                            <span>用户名</span><input class="text-input" type="text" name="account" />
+                        </div>
+                        <div class="form-text">
+                            <span>密&nbsp;&nbsp;码</span><input class="text-input" type="password" name="password" />
+                        </div>
+                        <div class="form-checkbox">
+                            <input class="checkbox-input" type="checkbox" name="rememberpassword" /> 记住密码
+                            <input class="checkbox-input" type="checkbox" name="autologin" /> 自动登录
+                        </div>
+                        <input class="submit-input" type="submit" value="" />
+                    </form>
+                </div>
+                <div class="logon-bottom">
+                </div>
+            </div>
+            <!--div class="copyright">
+            	© DCampus rights reserved. Powered by DCampus
+            </div-->
+    	</div>
+    </DIV>
+    
+</body>
+</html>

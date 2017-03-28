@@ -1,0 +1,36 @@
+<div class="login-body">
+<div class="login-wrap">
+    <DIV class = "main" >
+        <form  method="post" id="form"  ng-submit="login()">
+            <div class="form-text">
+                用户名：
+                <br />
+                <input class="text-input" type="text" name="username" ng-model="loginInfo.username" required=""/>
+            </div>
+            <div class="form-text">
+                密&nbsp;&nbsp;码：
+                <br />
+                <input class="text-input" type="password" name="password" ng-model="loginInfo.password" required=""/>
+            </div>
+            <div class="form-checkbox">
+                <input class="checkbox-input" id="rememberme" type="checkbox" name="rememberpassword" ng-model="loginInfo.shouldRemember"/> 记住密码
+
+            </div>
+            <div class="form-foot">
+                <input class="submit local" type="submit" value=""/>
+                <!--a href="#" target="_blank">忘记了密码吗?</a-->
+            </div>
+        </form>
+    </DIV>
+    <div class="downloadWrap">
+        <div class="links">
+            <a target="_blank" class="iphone" href="https://itunes.apple.com/cn/app/dcampus-weblib/id519009725?mt=8"></a>
+            <a target="_blank" class="ipad" href="https://itunes.apple.com/cn/app/weblib-hd/id510591668?mt=8"></a>
+        </div>
+    </div>
+    <div class="copyright">
+        Copyright © 2008 - 2016 DCampus. All Rights Reserved
+    </div>
+
+</div>
+</div>

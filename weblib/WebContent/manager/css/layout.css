@@ -1,0 +1,47 @@
+/* CSS Document */
+body {margin:0;padding:0;background:#f5fafc;font:12px/150% "宋体";color:#333;overflow:hidden;}
+#header_bg {background:url(../images/header_bg_02.gif) repeat-x;height:52px;position:relative;margin-left:}
+#header {height:58px;background:url(../images/heander_bg2_01.jpg) no-repeat;border-bottom:1px solid #c2d8e3;position:relative;}
+#logotOut {position:absolute;right:18px;top:5px;color:#fff;}
+#logo {background:url(../images/jiaoshiguanli_02.jpg);width:82px;height:49px;position:absolute;left:25px;top:1px;}
+.menu {position:absolute;width:550px;bottom:-9px;left:114px;}
+*html .menu {left:110px;}
+.menu li {height:36px;float:left;margin:0 5px 0 5px;}
+.menu li a {display:block;padding:0 10px 0 10px;height:36px;text-align:center;text-decoration:none;font:14px/36px "宋体";color:#fff;font-weight:bold;float:left;}
+.menu li a.tab_on {background:url(../images/tab_on_05.jpg);color:#5d5d5d;position:relative;}
+.menu li a.tab_on .tab_left {position:absolute;background:url(../images/tab_on_left_03.jpg);width:7px;height:36px;left:-7px;top:0;}
+.menu li a.tab_on .tab_right {position:absolute;background:url(../images/tab_on_right_03.jpg);width:7px;height:36px;right:-7px;top:0;}
+#wrap {margin:6px 0 0 0;border-top:1px solid #c3d3de;border-left:1px solid #c3d3de;border-right:1px solid #c3d3de;}
+#left {width:136px;border-right:5px  solid #deeffa;background:#f2f9fd;float:left;overflow:auto;}
+.subMenu li {background:url(../images/subMenu_underline_07.jpg) bottom repeat-x;overflow:hidden;margin:0;padding:0;height:32px;}
+.subMenu li a{display:block;height:30px;text-decoration:none;text-align:center;color:#666;line-height:30px;}
+.subMenu li a.subOn{background:#deeffa;color:#2366a8;}
+.subMenu li a:hover {background:#eaf4fb;color:#2366a8;}
+.subMenu .subMenuBg {display:block;background:#fff;height:100%;position:absolute;}
+#right {margin-left:143px;}
+.button {height:22px;font:12px/18px "宋体";color:#333;}
+.text {border:1px solid #c3c3c3;}
+.siteMap {background:url(../images/siteMapButton_03.jpg);width:72px;height:18px;position:absolute;right:15px;top:30px;display:block;text-indent:-9999px;overflow:hidden;}
+.breadTitle {}
+.breadLeft {background:url(../images/bread_crumb_left_03.jpg);height:25px;width:3px;position:absolute;display:block;left:0;top:0;}
+.breadRight {background:url(../images/bread_crumb_right_03.jpg);height:25px;width:3px;position:absolute;display:block;right:0;top:0;}
+.breadTitle a {font:12px/25px "宋体";color:#aaa;text-decoration:none;}
+.breadTitle a:hover {text-decoration:underline;}
+#frameContainer {background:#fff;overflow:auto;}
+.north {padding:0 !important;margin:0 !important;background:url(../images/sky_03.jpg) repeat-x 0 51px !important;border:0 !important;overflow:hidden !important;height:59px !important;}
+.west,.center{border:0 !important;padding:0 !important;margin:0 !important;}
+.west {width:136px !important;border-right:5px  solid #deeffa !important;background:#f2f9fd !important;}
+
+/**管理地图**/
+#siteMap {width:700px;height:350px;background:#fff;position:absolute;top:0;left:0;z-index:100;border:1px solid #1364a9;}
+#siteMap .borderwrap {border:1px solid #9bc8d7;width:698px;height:348px;}
+#siteMap .borderInsideWrap {border:5px solid #4397c2;width:688px;height:338px;}
+.siteMapH3 {height:35px;padding-left:95px;line-height:50px;font:14px/50px "宋体";color:#d5ccd5;position:relative;}
+.siteMapH3 .siteMap {left:15px;top:15px;}
+.borderInsideWrap table{width:95%;margin:10px auto 0 auto;}
+.borderInsideWrap table th {font:12px/150% "宋体";color:#0099cc;font-weight:bold;padding-left:3px;}
+.borderInsideWrap table td {font:12px/150% "宋体";color:#333;}
+.borderInsideWrap table td a {font:12px/150% "宋体";color:#333;text-decoration:none;	float:left;width:100%;padding-left:3px;}
+.borderInsideWrap table td.tdHover {background:#0099cc;color:#fff;}
+.borderInsideWrap table td.tdHover a {color:#fff;}
+.contentMapWrap {height:303px;overflow:auto;}

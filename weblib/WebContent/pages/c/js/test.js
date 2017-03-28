@@ -1,0 +1,24 @@
+function hasClass(ele,cls) {
+  return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+}
+ 
+function addClass(ele,cls) {
+  if (!this.hasClass(ele,cls)) ele.className += " "+cls;
+}
+ 
+function removeClass(ele,cls) {
+  if (hasClass(ele,cls)) {
+          var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+    ele.className=ele.className.replace(reg,' ');
+  }
+}
+
+function changeClass(id) {
+	var ele = document.getElementById(id);
+	var className = 'expanded';
+	if (!hasClass(ele,className)) {
+		addClass(ele,className);
+	}else {
+		removeClass(ele,className);
+	}
+}
