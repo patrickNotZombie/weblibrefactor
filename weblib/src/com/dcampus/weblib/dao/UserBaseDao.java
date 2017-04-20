@@ -15,7 +15,7 @@ import com.dcampus.weblib.entity.UserBase;
 
 /**
  * 
- * 所有与搜索查询有关的接口均未实现
+ * 所有与搜索查询searchTerm有关的接口均未实现(暂时未用到？)
  * 
  * 要对密码先进行MD5之后再存入
  * 

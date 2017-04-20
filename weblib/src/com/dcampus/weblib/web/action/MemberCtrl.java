@@ -27,7 +27,7 @@ import com.dcampus.weblib.util.JsonUtil;
  *
  */
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/login")
 public class MemberCtrl extends BaseService{
 	
 	@Autowired
@@ -156,6 +156,8 @@ public class MemberCtrl extends BaseService{
 		return returnStr.toString();
 	}
 	/*******************************************用户验证结束*********************************************/
+	
+	/*******************************************用户注册与信息************************************************/
 
 }
 
