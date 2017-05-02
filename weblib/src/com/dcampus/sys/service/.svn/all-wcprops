@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/repository/pre-research/!svn/ver/496/lms/src/com/dcampus/sys/service
+END
+UserService.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repository/pre-research/!svn/ver/290/lms/src/com/dcampus/sys/service/UserService.java
+END
+LogService.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/service/LogService.java
+END
+EmailTemplate.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/service/EmailTemplate.java
+END
+DictService.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/service/DictService.java
+END
+MessageService.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/service/MessageService.java
+END
+EmailService.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repository/pre-research/!svn/ver/496/lms/src/com/dcampus/sys/service/EmailService.java
+END

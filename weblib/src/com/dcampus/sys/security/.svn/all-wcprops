@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/repository/pre-research/!svn/ver/686/lms/src/com/dcampus/sys/security
+END
+Principal.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/security/Principal.java
+END
+HtmlRealm.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/repository/pre-research/!svn/ver/495/lms/src/com/dcampus/sys/security/HtmlRealm.java
+END
+CasRealm.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/security/CasRealm.java
+END
+HtmlUsernamePasswordToken.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/repository/pre-research/!svn/ver/495/lms/src/com/dcampus/sys/security/HtmlUsernamePasswordToken.java
+END
+CasUsernamePasswordToken.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repository/pre-research/!svn/ver/495/lms/src/com/dcampus/sys/security/CasUsernamePasswordToken.java
+END
+HasAnyPermissionsTag.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/security/HasAnyPermissionsTag.java
+END
+LocalRealm.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/repository/pre-research/!svn/ver/686/lms/src/com/dcampus/sys/security/LocalRealm.java
+END
+RolesOrAuthorizationFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/security/RolesOrAuthorizationFilter.java
+END
+PermsOrAuthorizationFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/security/PermsOrAuthorizationFilter.java
+END

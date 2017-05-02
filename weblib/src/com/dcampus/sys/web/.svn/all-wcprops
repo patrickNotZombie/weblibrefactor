@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/repository/pre-research/!svn/ver/808/lms/src/com/dcampus/sys/web
+END
+FileInfoCtrl.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repository/pre-research/!svn/ver/66/lms/src/com/dcampus/sys/web/FileInfoCtrl.java
+END
+SettingCtrl.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/web/SettingCtrl.java
+END
+UserCtrl.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/repository/pre-research/!svn/ver/669/lms/src/com/dcampus/sys/web/UserCtrl.java
+END
+LogCtrl.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/web/LogCtrl.java
+END
+RoleCtrl.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/web/RoleCtrl.java
+END
+principalCtrl.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/web/principalCtrl.java
+END
+DictCtrl.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/repository/pre-research/!svn/ver/74/lms/src/com/dcampus/sys/web/DictCtrl.java
+END
+PermCtrl.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/repository/pre-research/!svn/ver/2/lms/src/com/dcampus/sys/web/PermCtrl.java
+END
+LoginCtrl.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/repository/pre-research/!svn/ver/808/lms/src/com/dcampus/sys/web/LoginCtrl.java
+END

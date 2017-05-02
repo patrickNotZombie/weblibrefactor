@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd"
+	default-lazy-init="true">
+
+	<description>Shiro Configuration</description>
+
+	<!-- 加载配置属性文件 
+	<context:property-placeholder ignore-unresolvable="true" location="classpath*:/application.properties" />
+	-->
+	
+	<!-- 本地登陆的 LocalRealm （depend-on用来表示一个Bean的实例化依靠另一个Bean先实例化）。-->
+	<bean id="localRealm" class="com.dcampus.sys.security.LocalRealm">
+		<property name="userService" ref="userService"/>
+	</bean>
+	<!-- cas认证的 CasRealm （depend-on用来表示一个Bean的实例化依靠另一个Bean先实例化）。-->
+	<bean id="casRealm" class="com.dcampus.sys.security.CasRealm">
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<!-- html认证的 HtmlRealm （depend-on用来表示一个Bean的实例化依靠另一个Bean先实例化）。-->
+	<bean id="htmlRealm" class="com.dcampus.sys.security.HtmlRealm">
+		<property name="userService" ref="userService"/>
+	</bean>
+	
+	<bean id="modularRealmAuthenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
+    	<property name="authenticationStrategy" ref="firstSuccessfulStrategy"></property>
+	</bean>
+	<bean id="atLeastOneSuccessfulStrategy" class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"></bean><!-- 多realm策略：只要有一个（或更多）的Realm验证成功，那么认证将被视为成功 -->
+	<bean id="firstSuccessfulStrategy" class="org.apache.shiro.authc.pam.FirstSuccessfulStrategy"></bean><!-- 多realm策略：第一个Realm验证成功，整体认证将被视为成功，且后续Realm将被忽略 -->
+	<bean id="allSuccessfulStrategy" class="org.apache.shiro.authc.pam.AllSuccessfulStrategy"></bean><!-- 多realm策略：所有Realm成功，认证才视为成功 -->
+	
+	<!-- 定义 Shiro 主要业务对象 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+	    <property name="authenticator" ref="modularRealmAuthenticator"></property>  <!-- 指定使用modularRealmAuthenticator，此认证器支持多个realms -->
+		<!-- <property name="realm" ref="localRealm" />-->
+		<!-- 多个realm  认证策略默认实现是AtLeastOneSuccessfulStrategy 方式， 只要有一个（或更多）的Realm验证成功，那么认证将被视为成功 -->
+		<property name="realms">
+			<list>
+				<ref bean="casRealm" /><!-- -->
+				<ref bean="localRealm" />
+				<ref bean="htmlRealm" />
+			</list>
+		</property>
+		<property name="cacheManager" ref="shiroCacheManager" />
+	</bean>
+	
+	<!-- Shiro 过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/casLogin" /><!-- 没有登录的用户请求需要登录的页面时自动跳转到登录页面，不是必须的属性，不输入地址的话会自动寻找项目web项目的根目录下的”/login.jsp”页面。 -->
+		<property name="successUrl" value="/loginAssign" /><!-- 登录成功默认跳转页面，不配置则跳转至”/”。如果登陆前点击的一个需要登录的页面，则在登录自动跳转到那个需要登录的页面。不跳转到此。 -->
+		<!--<property name="unauthorizedUrl" value="/unauthorized"></property> 没有权限默认跳转的页面。 -->
+		<!-- filters map, 本身定义了一系列默认filter，同时可自定一alias及对应的AuthenticationFilter -->
+		<property name="filters">
+			<util:map>
+			    <!--<entry key="authc" value-ref="formAuthenticationFilter"/>-->
+			    <!-- 默认authc的filter
+			    <entry key="authc">
+					<bean class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter" />
+				</entry>-->
+				
+				<!-- 自定义cas filter
+			    <entry key="casAuthc">
+					<bean class="com.dcampus.labtables.modules.sys.security.CasAuthenticatingFilter" />
+				</entry> -->
+				<!-- 自定义rolesOr filter -->
+			    <entry key="rolesOr">
+					<bean class="com.dcampus.sys.security.RolesOrAuthorizationFilter" />
+				</entry>
+				<!-- 自定义permsOr filter -->
+			    <entry key="permsOr">
+					<bean class="com.dcampus.sys.security.PermsOrAuthorizationFilter" />
+				</entry>
+			</util:map>
+     	</property>
+		
+		<property name="filterChainDefinitions">
+			<!-- 
+			          自带的的认证授权过滤器：
+			    anon，authcBasic，auchc，user是认证过滤器
+                perms，roles，ssl，rest，port是授权过滤器
+			
+				anon   org.apache.shiro.web.filter.authc.AnonymousFilter   
+				表示可以匿名使用， 没有参数
+				authc  org.apache.shiro.web.filter.authc.FormAuthenticationFilter 
+				表示需要认证(登录)才能使用，没有参数
+				roles  org.apache.shiro.web.filter.authz.RolesAuthorizationFilter  
+				例子/admin/user/**=roles[admin],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，当有多个参数时，例如admins/user/**=roles["admin,guest"],每个参数通过才算通过
+				perms  org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter 
+				例子/admin/user/**=perms[user:add:*],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，例如/admins/user/**=perms["user:add:*,user:modify:*"]，当有多个参数时必须每个参数都通过才通过
+				port   org.apache.shiro.web.filter.authz.PortFilter
+				例子/admin/user/**=port[8081],当请求的url的端口不是8081是跳转到schemal://serverName:8081?queryString,其中schmal是协议http或https等，serverName是你访问的host,8081是url配置里port的端口，queryString
+				rest   org.apache.shiro.web.filter.authz.HttpMethodPermissionFilter
+				例子/admin/user/**=rest[user],根据请求的方法，相当于/admins/user/**=perms[user:method] ,其中method为post，get，delete等。
+				authcBasic org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter
+				例如/admin/user/**=authcBasic没有参数表示httpBasic认证
+				ssl    org.apache.shiro.web.filter.authz.SslFilter
+				例子/admin/user/**=ssl没有参数，表示安全的url请求，协议为https
+				user   org.apache.shiro.web.filter.authc.UserFilter
+				例如/admin/user/**=user没有参数表示必须存在用户，当登入操作时不做检查
+				logout org.apache.shiro.web.filter.authc.LogoutFilter
+			          例如/admin/user/**=logout没有参数表示退出登录
+			 -->
+			<value>
+				/images/** = anon
+				/static/** = anon
+				/ajax/** = anon
+				/init/** = anon
+		    	/logout = logout
+		    	/htmlLogin = anon
+		    	/casLogin = anon
+		    	/loginAssign = anon
+		    	/test = anon
+				/** = authc
+				/creator/** = roles[creator]
+				<!--/admin/** = roles[admin]-->
+			<!--	/admin/** = roles[role_manager] 见 User.userType -->
+			<!--	/member1/** = roles[role_member1] -->
+			<!--	/member2/** = roles[role_member2] -->
+		 	</value>
+		</property>
+	</bean>
+	<!-- Shiro 过滤器 -->
+	<bean id="htmlShiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/html/login.html" /><!-- 没有登录的用户请求需要登录的页面时自动跳转到登录页面，不是必须的属性，不输入地址的话会自动寻找项目web项目的根目录下的”/login.jsp”页面。 -->
+		<property name="successUrl" value="" /><!-- 登录成功默认跳转页面，不配置则跳转至”/”。如果登陆前点击的一个需要登录的页面，则在登录自动跳转到那个需要登录的页面。不跳转到此。 -->
+		<!--<property name="unauthorizedUrl" value="/unauthorized"></property> 没有权限默认跳转的页面。 -->
+		<!-- filters map, 本身定义了一系列默认filter，同时可自定一alias及对应的AuthenticationFilter -->
+		<property name="filters">
+			<util:map>
+			    <!--<entry key="authc" value-ref="formAuthenticationFilter"/>-->
+			    <!-- 默认authc的filter
+			    <entry key="authc">
+					<bean class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter" />
+				</entry>-->
+				
+				<!-- 自定义cas filter
+			    <entry key="casAuthc">
+					<bean class="com.dcampus.labtables.modules.sys.security.CasAuthenticatingFilter" />
+				</entry> -->
+				<!-- 自定义rolesOr filter -->
+			    <entry key="rolesOr">
+					<bean class="com.dcampus.sys.security.RolesOrAuthorizationFilter" />
+				</entry>
+				<!-- 自定义permsOr filter -->
+			    <entry key="permsOr">
+					<bean class="com.dcampus.sys.security.PermsOrAuthorizationFilter" />
+				</entry>
+			</util:map>
+     	</property>
+		
+		<property name="filterChainDefinitions">
+			<!-- 
+			          自带的的认证授权过滤器：
+			    anon，authcBasic，auchc，user是认证过滤器
+                perms，roles，ssl，rest，port是授权过滤器
+			
+				anon   org.apache.shiro.web.filter.authc.AnonymousFilter   
+				表示可以匿名使用， 没有参数
+				authc  org.apache.shiro.web.filter.authc.FormAuthenticationFilter 
+				表示需要认证(登录)才能使用，没有参数
+				roles  org.apache.shiro.web.filter.authz.RolesAuthorizationFilter  
+				例子/admin/user/**=roles[admin],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，当有多个参数时，例如admins/user/**=roles["admin,guest"],每个参数通过才算通过
+				perms  org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter 
+				例子/admin/user/**=perms[user:add:*],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，例如/admins/user/**=perms["user:add:*,user:modify:*"]，当有多个参数时必须每个参数都通过才通过
+				port   org.apache.shiro.web.filter.authz.PortFilter
+				例子/admin/user/**=port[8081],当请求的url的端口不是8081是跳转到schemal://serverName:8081?queryString,其中schmal是协议http或https等，serverName是你访问的host,8081是url配置里port的端口，queryString
+				rest   org.apache.shiro.web.filter.authz.HttpMethodPermissionFilter
+				例子/admin/user/**=rest[user],根据请求的方法，相当于/admins/user/**=perms[user:method] ,其中method为post，get，delete等。
+				authcBasic org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter
+				例如/admin/user/**=authcBasic没有参数表示httpBasic认证
+				ssl    org.apache.shiro.web.filter.authz.SslFilter
+				例子/admin/user/**=ssl没有参数，表示安全的url请求，协议为https
+				user   org.apache.shiro.web.filter.authc.UserFilter
+				例如/admin/user/**=user没有参数表示必须存在用户，当登入操作时不做检查
+				logout org.apache.shiro.web.filter.authc.LogoutFilter
+			          例如/admin/user/**=logout没有参数表示退出登录
+			 -->
+			<value>
+				/images/** = anon
+				/static/** = anon
+				/ajax/** = anon
+				/init/** = anon
+				/html/login.html = anon
+				/htmlLogin = anon
+				/** = authc
+				/creator/** = roles[creator]
+				<!--/admin/** = roles[admin]-->
+			<!--	/admin/** = roles[role_manager] 见 User.userType -->
+			<!--	/member1/** = roles[role_member1] -->
+			<!--	/member2/** = roles[role_member2] -->
+		 	</value>
+		</property>
+	</bean> 
+	
+	<!-- 用户授权信息Cache, 采用EhCache -->
+	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache/ehcache-shiro.xml"/>
+	</bean>
+	
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+	
+	<!-- AOP式方法级权限检查 --> 
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+	
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+    	<property name="securityManager" ref="securityManager"/>
+	</bean>
+</beans>
